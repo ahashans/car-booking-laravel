@@ -1,10 +1,25 @@
 @extends('layouts.app')
 
 @section('content')
+    @if (session('status'))
+        @if(session('status')==="success")
+            <div class="alert alert-dismissible alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h4 class="alert-heading">Success!</h4>
+                <p class="mb-0">Successfully inserted new location</p>
+            </div>
+        @else
+            <div class="alert alert-dismissible alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h4 class="alert-heading">Error!</h4>
+                <p class="mb-0">Unable to insert Location</p>
+            </div>
+        @endif
+    @endif
 <div class="container">
-    <div class="locationd bg-light mb-6">
-        <div class="locationd-header">locations</div>
-        <div class="locationd-body">
+    <div class="card bg-light mb-6">
+        <div class="card-header">locations</div>
+        <div class="card-body">
             <table class="table table-hover">
                 <thead>
                     <tr>

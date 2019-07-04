@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Car;
+use Illuminate\Support\Facades\Session;
 
 class CarController extends Controller
 {
@@ -16,6 +17,11 @@ class CarController extends Controller
     {
         //
         $cars = Car::all();
+//        if(!empty(Session::get('message'))){
+//            $message = Session::get('message');
+//            return view('cars.index', compact('cars','message'));
+//
+//        }
         return view('cars.index', compact('cars'));
     }
 
@@ -39,10 +45,17 @@ class CarController extends Controller
     public function store(Request $request)
     {
         //
-        Car::create([
-            'name' => request('car')
-        ]);
-        return redirect('/cars');
+        try{
+            Car::create([
+                'name' => request('car')
+            ]);
+        }
+        catch (\Exception $e){
+            $message = "failed";
+            return redirect('/cars')->with('status', $message);
+        }
+        $message = "success";
+        return redirect('/cars')->with('status', $message);
     }
 
     /**

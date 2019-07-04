@@ -39,10 +39,17 @@ class LocationController extends Controller
     public function store(Request $request)
     {
         //
-        Location::create([
-            'name' => request('location')
-        ]);
-        return redirect('/locations');
+        try{
+            Location::create([
+                'name' => request('location')
+            ]);
+        }
+        catch (\Exception $e){
+            $message = "failed";
+            return redirect('/locations')->with('status', $message);
+        }
+        $message = "success";
+        return redirect('/locations')->with('status', $message);
     }
 
     /**

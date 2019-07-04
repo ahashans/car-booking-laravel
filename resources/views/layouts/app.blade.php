@@ -12,6 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet">
     @yield('additional_css')
 </head>
 
@@ -99,6 +100,10 @@
     </footer>
     <!-- Footer -->
     <!-- Footer -->
+    <script src="{{asset('js/jquery-3.2.1.slim.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/popper.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/bootstrap.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/toastr.min.js')}}" type="text/javascript"></script>
 
     @yield('additional_js')
 </body>
