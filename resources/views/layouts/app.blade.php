@@ -1,3 +1,8 @@
+<?php 
+  function current_page($uri = "/") { 
+    return strstr(request()->path(), $uri); 
+  } 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,18 +26,24 @@
 
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item {{current_page('booking') ? 'active' : ''}}">
                         <a class="nav-link" href="/">Bookings <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {{current_page('book') ? 'active' : ''}}">
                         <a class="nav-link" href="/">Book</a>
                     </li>
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
+                    <li class="nav-item {{current_page('cars/create') ? 'active' : ''}}">
+                        <a class="nav-link" href="/cars/create">Create Cars</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li> --}}
+                    <li class="nav-item {{current_page('cars') ? 'active' : ''}}">
+                        <a class="nav-link" href="/cars">All Cars</a>
+                    </li>
+                    <li class="nav-item {{current_page('locations/create') ? 'active' : ''}}">
+                        <a class="nav-link" href="/locations/create">Create Locations</a>
+                    </li>
+                    <li class="nav-item {{current_page('locations') ? 'active' : ''}}">
+                        <a class="nav-link" href="/locations">All Locations</a>
+                    </li>
                 </ul>
                 {{-- <form class="form-inline my-2 my-lg-0">
                     
