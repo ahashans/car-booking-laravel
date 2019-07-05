@@ -12,7 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet">
+
     @yield('additional_css')
 </head>
 
@@ -28,22 +28,22 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item {{current_page('booking') ? 'active' : ''}}">
-                        <a class="nav-link" href="/">Bookings <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="{{route('bookings.index')}}">All Bookings</a>
                     </li>
-                    <li class="nav-item {{current_page('book') ? 'active' : ''}}">
-                        <a class="nav-link" href="/">Book</a>
-                    </li>
+{{--                    <li class="nav-item {{current_page('book') ? 'active' : ''}}">--}}
+{{--                        <a class="nav-link" href="/">Book</a>--}}
+{{--                    </li>--}}
 {{--                    <li class="nav-item {{current_page('cars/create') ? 'active' : ''}}">--}}
 {{--                        <a class="nav-link" href="/cars/create">Create Cars</a>--}}
 {{--                    </li>--}}
                     <li class="nav-item {{current_page('cars') ? 'active' : ''}}">
-                        <a class="nav-link" href="/cars">All Cars</a>
+                        <a class="nav-link" href="{{route('cars.index')}}">All Cars</a>
                     </li>
 {{--                    <li class="nav-item {{current_page('locations/create') ? 'active' : ''}}">--}}
 {{--                        <a class="nav-link" href="/locations/create">Create Locations</a>--}}
 {{--                    </li>--}}
                     <li class="nav-item {{current_page('locations') ? 'active' : ''}}">
-                        <a class="nav-link" href="/locations">All Locations</a>
+                        <a class="nav-link" href="{{route('locations.index')}}">All Locations</a>
                     </li>
                 </ul>
                 {{-- <form class="form-inline my-2 my-lg-0">
@@ -92,7 +92,7 @@
     <footer class="page-footer font-small blue fixed-bottom">
 
         <!-- Copyright -->
-        <div class="footer-copyright text-center py-3">© 2018 Copyright:
+        <div class="footer-copyright text-center py-3">© 2019 Copyright:
             <a href="https://mdbootstrap.com/education/bootstrap/"> MDBootstrap.com</a>
         </div>
         <!-- Copyright -->
@@ -103,7 +103,9 @@
     <script src="{{asset('js/jquery-3.2.1.slim.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/popper.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/bootstrap.min.js')}}" type="text/javascript"></script>
-    <script src="{{asset('js/toastr.min.js')}}" type="text/javascript"></script>
+
+
+
 
     @yield('additional_js')
 </body>

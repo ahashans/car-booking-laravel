@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Car;
+use App\Location;
+use App\CarBooking;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CarBookController extends Controller
 {
@@ -14,6 +19,8 @@ class CarBookController extends Controller
     public function index()
     {
         //
+        $bookings = CarBooking::all();
+        return view('bookings.index',compact('bookings'));
     }
 
     /**
@@ -24,6 +31,10 @@ class CarBookController extends Controller
     public function create()
     {
         //
+        $cars = Car::all();
+        $locations = Location::all();
+        return view('bookings.form', compact('cars', 'locations'));
+
     }
 
     /**
@@ -35,6 +46,29 @@ class CarBookController extends Controller
     public function store(Request $request)
     {
         //
+
+//        dd($request->all());
+        try{
+            $carbooking = new CarBooking();
+            $carbooking->fill($request->all());
+            $carbooking->booked_user_id=Auth::user()->id;
+            $carbooking->save();
+//            CarBooking::create([
+//                'passenger_count'=>$request[''],
+//                'booked_user_id'=>Auth::user()->id,
+//                'car_id'=>,
+//                'pickup_location_id'=>,
+//                'destination_location_id'=>,
+//                'booking_time'=>,
+//                'return_time'=>,
+//
+//            ]);
+        }catch (Exception $exception){
+            $message = "failed";
+            return redirect('/bookings')->with('status', $message);
+        }
+        $message = "success";
+        return redirect('/bookings')->with('status', $message);
     }
 
     /**
