@@ -2,17 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use App\Car;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class CarController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         //
@@ -33,7 +41,7 @@ class CarController extends Controller
     public function create()
     {
         //
-        return view('cars.create');
+        return view('cars.form');
     }
 
     /**
@@ -46,11 +54,9 @@ class CarController extends Controller
     {
         //
         try{
-            Car::create([
-                'name' => request('car')
-            ]);
+            Car::create($request->all());
         }
-        catch (\Exception $e){
+        catch (Exception $exception){
             $message = "failed";
             return redirect('/cars')->with('status', $message);
         }
@@ -64,9 +70,10 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Car $car)
     {
         //
+        return view('cars.show', compact('car'));
     }
 
     /**
@@ -75,10 +82,10 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Car $car)
     {
         //
-        
+        return view('cars.form', compact('car'));
     }
 
     /**
@@ -88,9 +95,22 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Car $car)
     {
         //
+       try{
+           $car->update($request->all());
+
+       }catch (Exception $exception){
+           $message = "failed";
+           return redirect('/cars')->with('status', $message);
+       }
+        /*
+         *TODO Possible Bug Notification shows if we back and
+         * forth the edit page after edit.
+         */
+        $message = "success";
+        return redirect('/cars')->with('status', $message);
     }
 
     /**
@@ -99,8 +119,16 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Car $car)
     {
         //
+        try{
+            $car->delete();
+        }catch (Exception $exception){
+            $message = "failed";
+            return redirect('/cars')->with('status', $message);
+        }
+        $message = "success";
+        return redirect('/cars')->with('status', $message);
     }
 }

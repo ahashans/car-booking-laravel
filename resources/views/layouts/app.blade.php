@@ -33,15 +33,15 @@
                     <li class="nav-item {{current_page('book') ? 'active' : ''}}">
                         <a class="nav-link" href="/">Book</a>
                     </li>
-                    <li class="nav-item {{current_page('cars/create') ? 'active' : ''}}">
-                        <a class="nav-link" href="/cars/create">Create Cars</a>
-                    </li>
+{{--                    <li class="nav-item {{current_page('cars/create') ? 'active' : ''}}">--}}
+{{--                        <a class="nav-link" href="/cars/create">Create Cars</a>--}}
+{{--                    </li>--}}
                     <li class="nav-item {{current_page('cars') ? 'active' : ''}}">
                         <a class="nav-link" href="/cars">All Cars</a>
                     </li>
-                    <li class="nav-item {{current_page('locations/create') ? 'active' : ''}}">
-                        <a class="nav-link" href="/locations/create">Create Locations</a>
-                    </li>
+{{--                    <li class="nav-item {{current_page('locations/create') ? 'active' : ''}}">--}}
+{{--                        <a class="nav-link" href="/locations/create">Create Locations</a>--}}
+{{--                    </li>--}}
                     <li class="nav-item {{current_page('locations') ? 'active' : ''}}">
                         <a class="nav-link" href="/locations">All Locations</a>
                     </li>

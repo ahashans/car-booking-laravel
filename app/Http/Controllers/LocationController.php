@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use App\Location;
 
@@ -27,7 +28,7 @@ class LocationController extends Controller
     public function create()
     {
         //
-        return view('locations.create');
+        return view('locations.form');
     }
 
     /**
@@ -40,11 +41,9 @@ class LocationController extends Controller
     {
         //
         try{
-            Location::create([
-                'name' => request('location')
-            ]);
+            Location::create($request->all());
         }
-        catch (\Exception $e){
+        catch (Exception $e){
             $message = "failed";
             return redirect('/locations')->with('status', $message);
         }
@@ -58,9 +57,10 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Location $location)
     {
         //
+        return view('locations.show', compact('location'));
     }
 
     /**
@@ -69,9 +69,10 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Location $location)
     {
         //
+        return view('locations.form', compact('location'));
     }
 
     /**
@@ -81,9 +82,17 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Location $location)
     {
         //
+        try{
+            $location->update($request->all());
+        }catch (Exception $exception){
+            $message = "failed";
+            return redirect('/locations')->with('status', $message);
+        }
+        $message = "success";
+        return redirect('/locations')->with('status', $message);
     }
 
     /**
@@ -92,8 +101,16 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Location $location)
     {
         //
+        try{
+            $location->delete();
+        }catch (Exception $exception){
+            $message = "failed";
+            return redirect('/locations')->with('status', $message);
+        }
+        $message = "success";
+        return redirect('/locations')->with('status', $message);
     }
 }

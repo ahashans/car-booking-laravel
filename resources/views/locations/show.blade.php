@@ -10,7 +10,7 @@
             <div class="form-group">
                 <label for="car">Location Name</label>
                 <input type="text" class="form-control" id="location" name="location" aria-describedby="emailHelp"
-                    placeholder="Enter Location Name" required>
+                    placeholder="Enter Location Name" disabled>
                 <small id="locationHelp" class="form-text text-muted">This is required</small>
             </div>
            
