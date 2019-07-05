@@ -18,8 +18,10 @@ class CreateCarBookingsTable extends Migration
             $table->smallInteger('passenger_count');
             $table->unsignedInteger('booked_user_id');
             $table->unsignedInteger('car_id');
-            $table->unsignedInteger('departure_id');
-            $table->unsignedInteger('destination_id');
+            $table->unsignedInteger('pickup_location_id');
+            $table->unsignedInteger('destination_location_id');
+            $table->dateTime('booking_time');
+            $table->dateTime('return_time');
             $table->timestamps();
         });
     }
