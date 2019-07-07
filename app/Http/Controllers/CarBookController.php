@@ -65,6 +65,7 @@ class CarBookController extends Controller
 //            ]);
         }catch (Exception $exception){
             $message = "failed";
+            dd($exception);
             return redirect('/bookings')->with('status', $message);
         }
         $message = "success";

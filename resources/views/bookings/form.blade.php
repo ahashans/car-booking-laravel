@@ -8,11 +8,11 @@
         <form action="{{isset($booking) ? route('bookings.update', $booking->id) : route('bookings.store')}}"
               method="POST">
             @csrf
-            @if(isset($car))
+            @if(isset($booking))
                 @method('PATCH')
             @endif
             <fieldset>
-                <legend>Create Car</legend>
+                <legend>Book a car</legend>
 
                 <div class="form-group">
                     <label for="car_id">Car Name</label>
@@ -57,7 +57,7 @@
                 <div class="form-group">
                     <label for="">Booking Time</label>
                     <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input" id="booking_time" name="booking_time" data-target="#datetimepicker1" required readonly="readonly">
+                        <input type="text" class="form-control datetimepicker-input" id="booking_time" name="booking_time" data-target="#datetimepicker1" required >
                         <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
@@ -67,7 +67,7 @@
                 <div class="form-group">
                     <label for="">Return Time</label>
                     <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" id="return_time" name="return_time" data-target="#datetimepicker2" required readonly="readonly">
+                    <input type="text" class="form-control datetimepicker-input" id="return_time" name="return_time" data-target="#datetimepicker2" required>
                         <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
