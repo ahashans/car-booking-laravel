@@ -18,8 +18,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 Route::resources([
     'cars' => 'CarController',
     'locations' => 'LocationController',
     'bookings' => 'CarBookController'
 ]);
+Route::get('/get-destination-locations', 'CarBookController@get_destination_location')->name('get_destination_location');

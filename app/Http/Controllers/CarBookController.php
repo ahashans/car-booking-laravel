@@ -69,7 +69,19 @@ class CarBookController extends Controller
     {
         //
     }
-
+    /**
+     * Sends Destination Location for a Pickup Location.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function get_destination_location(Request $request)
+    {
+        //
+        $pickup_location_id = $request->input('id');
+        $destination_locations = Location::where('id','<>',$pickup_location_id)->get();
+        return json_encode($destination_locations);
+    }
     /**
      * Show the form for editing the specified resource.
      *

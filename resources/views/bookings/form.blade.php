@@ -43,14 +43,14 @@
                 </div>
                 <div class="form-group">
                     <label for="pickup_location">Destination Location</label>
-                    <select class="form-control" id="destination_location" name="destination_location_id" required>
-                        <option value="">Select a Destination Location</option>
-                        @foreach($locations as $location)
+                    <select class="form-control" id="destination_location" name="destination_location_id" required disabled>
+                        <option value="">Select a Pickup Location First</option>
+{{--                        @foreach($locations as $location)--}}
 
-                            <option
-                                value="{{$location->id}}" {{isset($booking)?($location->id===$booking->destination_location_id?"selected":""):""}}>{{$location->name}}</option>
+{{--                            <option--}}
+{{--                                value="{{$location->id}}" {{isset($booking)?($location->id===$booking->destination_location_id?"selected":""):""}}>{{$location->name}}</option>--}}
 
-                        @endforeach
+{{--                        @endforeach--}}
                     </select>
                     <small id="dropoffHelp" class="form-text text-muted">This is required</small>
                 </div>
@@ -97,6 +97,28 @@
             $('#datetimepicker2').datetimepicker({
                 format: 'YYYY-MM-DD HH:mm:ss',
                 ignoreReadonly: true
+            });
+
+        });
+        $(document).ready(function () {
+            $('#pickup_location').change(function () {
+                const pickup_location_id = this.value;
+                $.ajax({
+                    url:'/get-destination-locations',
+                    type:'GET',
+                    data:{id:pickup_location_id},
+                    success:function (data) {
+                        $('#destination_location').html("<option value=''>Select a destination location</option>");
+                        for(var i=0;i<data.length;i++){
+                            $('#destination_location').append(`<option value='${data[i].id}'>${data[i].name}</option>`);
+                        }
+                        $('#destination_location').removeAttr("disabled");
+                    },
+                    error:function () {
+
+                    },
+                    dataType: "json"
+                })
             });
         });
     </script>
