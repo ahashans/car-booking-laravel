@@ -6,7 +6,7 @@
 @section('content')
     <div class="container">
         <form action="{{isset($booking) ? route('bookings.update', $booking->id) : route('bookings.store')}}"
-              method="POST">
+              method="POST" id="car_booking_form">
             @csrf
             @if(isset($booking))
                 @method('PATCH')
@@ -16,7 +16,7 @@
 
                 <div class="form-group">
                     <label for="car_id">Car Name</label>
-                    <select class="form-control" id="car_id" name="car_id" required>
+                    <select class="form-control" id="car" name="car_id" required>
                         <option value="">Select a car</option>
                         @foreach($cars as $car)
 
@@ -88,6 +88,7 @@
 @section('additional_js')
     <script src="{{asset('js/moment.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/tempusdominus-bootstrap-4.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/notify.min.js')}}" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
             $('#datetimepicker1').datetimepicker({
@@ -118,7 +119,34 @@
 
                     },
                     dataType: "json"
-                })
+                });
+
+            });
+            $('#car_booking_form').submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url:'/check-car-available',
+                    type:'GET',
+                    data:{
+                        car:$('#car').val(),
+                        pickup_time:$('#booking_time').val(),
+                        dropoff_time:$('#return_time').val()
+                    },
+                    success:function (data) {
+                        console.log(data);
+                        if(data==="Booked"){
+                            $.notify("The Car is booked");
+                        }
+                        else{
+                            // $.notify("The Car is Free", "success");
+                            $("#car_booking_form").unbind('submit');
+                        }
+                    },
+                    error:function () {
+
+                    },
+                    dataType: "json"
+                });
             });
         });
     </script>

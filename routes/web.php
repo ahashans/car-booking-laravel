@@ -25,3 +25,4 @@ Route::resources([
     'bookings' => 'CarBookController'
 ]);
 Route::get('/get-destination-locations', 'CarBookController@get_destination_location')->name('get_destination_location');
+Route::get('/check-car-available', 'CarBookController@check_car_available')->name('check-car-available');

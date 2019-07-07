@@ -72,7 +72,7 @@ class CarBookController extends Controller
     /**
      * Sends Destination Location for a Pickup Location.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function get_destination_location(Request $request)
@@ -81,6 +81,21 @@ class CarBookController extends Controller
         $pickup_location_id = $request->input('id');
         $destination_locations = Location::where('id','<>',$pickup_location_id)->get();
         return json_encode($destination_locations);
+    }
+    /**
+     * Checks whether a car is available between given time.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function check_car_available(Request $request)
+    {
+        $car_id = $request->input('car');
+        $pickup_time = $request->input('pickup_time');
+        $dropoff_time = $request->input('dropoff_time');
+        $is_booked_list = CarBooking::where('car_id','=',$car_id)->where('return_time','>=',$pickup_time);
+        $status = $is_booked_list->count() >0?"Booked":"Free";
+        return json_encode($status);
     }
     /**
      * Show the form for editing the specified resource.
