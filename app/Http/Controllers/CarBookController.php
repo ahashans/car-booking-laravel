@@ -46,26 +46,13 @@ class CarBookController extends Controller
     public function store(Request $request)
     {
         //
-
-//        dd($request->all());
         try{
             $carbooking = new CarBooking();
             $carbooking->fill($request->all());
             $carbooking->booked_user_id=Auth::user()->id;
             $carbooking->save();
-//            CarBooking::create([
-//                'passenger_count'=>$request[''],
-//                'booked_user_id'=>Auth::user()->id,
-//                'car_id'=>,
-//                'pickup_location_id'=>,
-//                'destination_location_id'=>,
-//                'booking_time'=>,
-//                'return_time'=>,
-//
-//            ]);
         }catch (Exception $exception){
             $message = "failed";
-            dd($exception);
             return redirect('/bookings')->with('status', $message);
         }
         $message = "success";
